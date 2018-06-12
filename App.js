@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Keyboard } from 'react-native';
 import PlaceList from './src/components/PlaceList/PlaceList'
 
 export default class App extends React.Component {
@@ -12,6 +12,7 @@ export default class App extends React.Component {
   placeNameChangeHandler = (val) => {
     this.setState({
       placeName: val
+      
     })
   }
 
@@ -23,6 +24,17 @@ export default class App extends React.Component {
       return {
         places: prevState.places.concat(prevState.placeName),
         placeName: ''
+      }
+    })
+    // Keyboard.dismiss();
+  }
+
+  placeDeleteHandler = (key) => {
+    this.setState(prevState => {
+      return {
+        places: prevState.places.filter((place, i) => {
+          return i !== key
+        })
       }
     })
   }
@@ -45,6 +57,7 @@ export default class App extends React.Component {
         </View>
         <PlaceList
           places={this.state.places}
+          onItemDeleted={this.placeDeleteHandler}
         />
       </View>
     );

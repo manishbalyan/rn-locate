@@ -1,11 +1,13 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 
 
 const listItems = (props) => (
-    <View style={styles.listItems}>
-        <Text style={styles.itemText}>{props.placeName}</Text>
-    </View>
+    <TouchableOpacity onPress={props.onItemPressed}>
+        <View style={styles.listItems}>
+            <Text style={styles.itemText}>{props.placeName}</Text>
+        </View>
+    </TouchableOpacity>
 )
 
 const styles = StyleSheet.create({
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
         padding: 5
     },
     itemText: {
-        color:'black'
+        color: 'black'
     }
 })
 
