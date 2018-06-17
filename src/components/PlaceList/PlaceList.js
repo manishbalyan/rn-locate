@@ -15,11 +15,12 @@ const placeList = (props) => {
     return (
         <FlatList
             style={styles.listContainer}
-            data={props.places} 
+            data={props.places}
             renderItem={(place) => {
                 return <ListItems
-                    placeName={place.value}
-                    onItemPressed={() => props.onItemDeleted(place.key)}
+                    placeName={place.item.name}
+                    image={place.item.image}
+                    onItemPressed={() => props.onItemSelected(place.item.key)}
                 />
             }}
         >
