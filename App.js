@@ -50,9 +50,28 @@ export default class App extends React.Component {
 
   onItemSelected = (key) => {
     this.setState(prevState => {
-      selectedPlace: prevState.places.find(place => {
-        place.key === key;
-      })
+      return {
+        selectedPlace: prevState.places.find(place => {
+          return place.key === key;
+        })
+      }
+    })
+  }
+
+  onItemDeleted = () => {
+    this.setState(prevState => {
+      return {
+        places: prevState.places.filter(place => {
+          return place.key !== prevState.selectedPlace.key;
+        }),
+        selectedPlace: null
+      }
+    })
+  }
+
+  onModalClose = () => {
+    this.setState({
+      selectedPlace: null
     })
   }
 
@@ -60,7 +79,10 @@ export default class App extends React.Component {
     const { selectedPlace } = this.state
     return (
       <View style={styles.container}>
-        <PlaceDetail selectedPlace={thiselectedPlace} />
+        <PlaceDetail
+          selectedPlace={selectedPlace}
+          onItemDeleted={this.onItemDeleted}
+          onModalClose={this.onModalClose} />
         <View style={styles.inputContainer}>
           <TextInput
             value={this.state.placeName}
